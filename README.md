@@ -13,7 +13,7 @@ Portfolio and CV at **[aosipov.dev](https://aosipov.dev)**.
 | --- | --- |
 | **[vendors-platform](https://github.com/haku4130/vendors-platform)** | Marketplace matching companies with IT contractors. FastAPI + SQLModel + PostgreSQL, Nuxt 3 frontend, Traefik, 7 CI workflows, deployed to production and staging. Live at [vendorfind.ru](https://vendorfind.ru). |
 | **[ml-malware-detector](https://github.com/haku4130/ml-malware-detector)** | Detects malicious Python source by semantic similarity to a malware corpus — CodeGen embeddings and KMeans clustering instead of hash matching. Bachelor's thesis. |
-| **[vpn-bot](https://github.com/haku4130/vpn-bot)** | Telegram bot managing VPN configs across multiple servers. Django + aiogram + Celery, gRPC to the Xray API, WireGuard config generation over SSH. |
+| **[vpn-bot](https://github.com/haku4130/vpn-bot)** | Telegram bot and Django admin managing a fleet of self-hosted VPN servers. Issues VLESS and AmneziaWG configs, talking to Xray over gRPC and to the servers over SSH. |
 | **[devops-bot](https://github.com/haku4130/devops-bot)** | Kubernetes infrastructure for deploying, monitoring and logging a Python service — the full delivery pipeline rather than the app. |
 | **[ter-s-gallery-website](https://github.com/haku4130/ter-s-gallery-website)** | Commercial multi-page site for a premium furniture brand. Django REST Framework backend, Nuxt 3 SSR, Docker, automated deploys. Live at [ters.gallery](https://ters.gallery). |
 | **[hyperos-accessibility-guard](https://github.com/haku4130/hyperos-accessibility-guard)** | Kotlin service that keeps an accessibility service alive on Xiaomi HyperOS, which silently kills it. No root, no Shizuku. |
@@ -22,9 +22,9 @@ Portfolio and CV at **[aosipov.dev](https://aosipov.dev)**.
 
 **Language** · Python 3.12, TypeScript, Kotlin
 
-**Backend** · FastAPI · Django · SQLModel · SQLAlchemy · Pydantic · aiogram · Celery · gRPC · pytest
+**Backend** · FastAPI · Django · SQLModel · Pydantic · aiogram · gRPC · pytest
 
-**Data** · PostgreSQL · Alembic · Redis
+**Data** · PostgreSQL · Alembic · SQLite
 
 **Infrastructure** · Docker · Docker Compose · Traefik · Kubernetes · GitHub Actions · Nginx · Prometheus · Grafana · Sentry
 
