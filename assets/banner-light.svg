@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="208" viewBox="0 0 1000 208" role="img" aria-label="Andrey Osipov — Python backend developer, Moscow">
+  <rect width="1000" height="208" fill="#E9EEEF"/>
+
+  <text x="64" y="104" font-family="Avenir Next, Avenir, Helvetica Neue, sans-serif"
+        font-size="60" font-weight="600" letter-spacing="-0.9" fill="#12222B">Andrey Osipov</text>
+
+  <path d="M66 152 H206" stroke="#B4C6CA" stroke-width="1.6" fill="none"/>
+  <circle cx="66"  cy="152" r="4.2" fill="#7E9BA1"/>
+  <circle cx="118" cy="152" r="4.2" fill="#7E9BA1"/>
+  <circle cx="170" cy="152" r="4.2" fill="#7E9BA1"/>
+  <path d="M206 146 L219 152 L206 158 Z" fill="#B8760F"/>
+
+  <text x="237" y="158" font-family="Menlo, DejaVu Sans Mono, monospace"
+        font-size="18" letter-spacing="3.2" fill="#4C6C74">PYTHON BACKEND DEVELOPER</text>
+
+  <text x="936" y="158" text-anchor="end" font-family="Menlo, DejaVu Sans Mono, monospace"
+        font-size="14" letter-spacing="1.4" fill="#4C6C74">Moscow &#183; aosipov.dev</text>
+</svg>

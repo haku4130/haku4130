@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="140" viewBox="0 0 420 140" role="img" aria-label="devops-bot">
+  <rect x="0.6" y="0.6" width="418.8" height="138.8" rx="8" fill="#12222B" stroke="#294450" stroke-width="1.2"/>
+  <text x="22" y="40" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, Liberation Mono, monospace" font-size="15.5" font-weight="700" fill="#E4A33A">devops-bot</text>
+  <text x="22" y="68" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif" font-size="13.5" fill="#B7CFCA">A full Kubernetes delivery pipeline — Helm, werf,</text><text x="22" y="89" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif" font-size="13.5" fill="#B7CFCA">Flux GitOps, Prometheus alerting and Loki logging</text>
+</svg>
