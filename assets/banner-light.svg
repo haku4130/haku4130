@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="208" viewBox="0 0 1000 208" role="img" aria-label="Andrey Osipov — Python backend developer, Moscow">
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="208" viewBox="0 0 1000 208" role="img" aria-label="Andrey Osipov — Python backend developer">
   <rect width="1000" height="208" fill="#E9EEEF"/>
 
   <text x="64" y="104" font-family="Avenir Next, Avenir, Helvetica Neue, sans-serif"
@@ -14,5 +14,5 @@
         font-size="18" letter-spacing="3.2" fill="#4C6C74">PYTHON BACKEND DEVELOPER</text>
 
   <text x="936" y="158" text-anchor="end" font-family="Menlo, DejaVu Sans Mono, monospace"
-        font-size="14" letter-spacing="1.4" fill="#4C6C74">Moscow &#183; aosipov.dev</text>
+        font-size="14" letter-spacing="1.4" fill="#4C6C74">Belgrade &#183; aosipov.dev</text>
 </svg>
