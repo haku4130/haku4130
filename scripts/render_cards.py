@@ -34,6 +34,7 @@ FEATURED = [
 
 # Palette shared with the banner.
 BG = '#12222B'
+BG_ALT = '#1B2E39'
 BORDER = '#294450'
 TITLE = '#E4A33A'
 TEXT = '#B7CFCA'
@@ -82,7 +83,7 @@ def wrap(text, max_chars, max_lines):
     return lines
 
 
-def card(name, description):
+def card(name, description, background):
     lines = wrap(description, 52, 3)
     body = ''.join(
         f'<text x="22" y="{68 + i * 21}" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif" '
@@ -90,28 +91,46 @@ def card(name, description):
         for i, line in enumerate(lines)
     )
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="420" height="140" viewBox="0 0 420 140" role="img" aria-label="{escape(name)}">
-  <rect x="0.6" y="0.6" width="418.8" height="138.8" rx="8" fill="{BG}" stroke="{BORDER}" stroke-width="1.2"/>
+  <rect x="0.6" y="0.6" width="418.8" height="138.8" rx="8" fill="{background}" stroke="{BORDER}" stroke-width="1.2"/>
   <text x="22" y="40" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, Liberation Mono, monospace" font-size="15.5" font-weight="700" fill="{TITLE}">{escape(name)}</text>
   {body}
 </svg>
 '''
 
 
+# Drawn as paths on a 16x16 grid rather than pulled from an icon font: an SVG
+# shown through <img> may not fetch anything external, so everything the card
+# needs has to be inside it.
+ICONS = {
+    # a commit: a node on a line
+    'commits': '<path d="M0 8h4.2M11.8 8H16"/><circle cx="8" cy="8" r="3.1"/>',
+    # a pull request: a branch that ends in an arrow
+    'pulls': ('<circle cx="4" cy="3" r="2"/><path d="M4 5v6"/><circle cx="4" cy="13" r="2"/>'
+              '<circle cx="12" cy="3" r="2"/><path d="M12 5v6.6"/>'
+              '<path d="M9.7 10.4 12 13.2l2.3-2.8"/>'),
+    # a repository: a book seen spine-on
+    'repos': '<rect x="2" y="1.8" width="12" height="12.4" rx="1.6"/><path d="M5.2 1.8v12.4"/>',
+}
+
+
 def stats_card(rows):
     """One wide strip under the project grid: three figures side by side."""
-    width, height = 856, 104
+    width, height = 856, 126
     body = ''
-    for i, (value, label) in enumerate(rows):
+    for i, (icon, value, label) in enumerate(rows):
         x = 30 + i * 282
-        body += (f'<text x="{x}" y="60" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif" '
+        body += (f'<g transform="translate({x} 45) scale(1.25)" fill="none" stroke="{MUTED}" '
+                 f'stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">{ICONS[icon]}</g>')
+        body += (f'<text x="{x + 32}" y="{65.5}" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif" '
                  f'font-size="30" font-weight="600" fill="{VALUE}">{value}</text>')
-        body += (f'<text x="{x}" y="82" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif" '
-                 f'font-size="13" fill="{MUTED}">{escape(label)}</text>')
+        body += (f'<text x="{x}" y="{92}" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif" '
+                 f'font-size="13.5" fill="{MUTED}">{escape(label)}</text>')
     dividers = ''.join(
-        f'<line x1="{30 + i * 282 - 26}" y1="34" x2="{30 + i * 282 - 26}" y2="86" stroke="{BORDER}" stroke-width="1.2"/>'
+        f'<line x1="{30 + i * 282 - 26}" y1="40" x2="{30 + i * 282 - 26}" y2="102" stroke="{BORDER}" stroke-width="1.2"/>'
         for i in (1, 2))
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-label="Activity">
   <rect x="0.6" y="0.6" width="{width - 1.2}" height="{height - 1.2}" rx="8" fill="{BG}" stroke="{BORDER}" stroke-width="1.2"/>
+  <text x="30" y="26" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, Liberation Mono, monospace" font-size="13" font-weight="700" letter-spacing="1.6" fill="{TITLE}">ACTIVITY</text>
   {dividers}
   {body}
 </svg>
@@ -121,9 +140,13 @@ def stats_card(rows):
 def main():
     ASSETS.mkdir(exist_ok=True)
 
-    for name in FEATURED:
+    for index, name in enumerate(FEATURED):
         repo = api(f'/repos/{USER}/{name}')
-        (ASSETS / f'card-{name}.svg').write_text(card(name, repo.get('description') or ''))
+        # The cards sit in a two-column grid, so column + row parity gives the
+        # checkerboard: (0,0) dark, (0,1) light, (1,0) light, and so on.
+        column, row = index % 2, index // 2
+        background = BG_ALT if (column + row) % 2 else BG
+        (ASSETS / f'card-{name}.svg').write_text(card(name, repo.get('description') or '', background))
         print(f'card-{name}.svg')
 
     # Counted over public, non-fork, not archived repositories — exactly the
@@ -145,9 +168,9 @@ def main():
     }} }}''')['data']['user']['contributionsCollection']
 
     rows = [
-        (str(data['totalCommitContributions']), 'commits, last 12 months'),
-        (str(data['totalPullRequestContributions']), 'pull requests opened'),
-        (str(public_repos), 'active public repositories'),
+        ('commits', str(data['totalCommitContributions']), 'commits, last 12 months'),
+        ('pulls', str(data['totalPullRequestContributions']), 'pull requests opened'),
+        ('repos', str(public_repos), 'active public repositories'),
     ]
     (ASSETS / 'card-stats.svg').write_text(stats_card(rows))
     print('card-stats.svg')
