@@ -83,16 +83,22 @@ def wrap(text, max_chars, max_lines):
     return lines
 
 
-def card(name, description, background):
+# Horizontal gap between the two columns. It is drawn inside the SVG rather
+# than left to whitespace in the README: two images that together fill the line
+# leave no room for a space, and adding one risks wrapping the pair.
+GAP = 20
+
+
+def card(name, description, background, offset):
     lines = wrap(description, 52, 3)
     body = ''.join(
-        f'<text x="22" y="{68 + i * 21}" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif" '
+        f'<text x="{offset + 22}" y="{68 + i * 21}" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif" '
         f'font-size="13.5" fill="{TEXT}">{escape(line)}</text>'
         for i, line in enumerate(lines)
     )
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="420" height="140" viewBox="0 0 420 140" role="img" aria-label="{escape(name)}">
-  <rect x="0.6" y="0.6" width="418.8" height="138.8" rx="8" fill="{background}" stroke="{BORDER}" stroke-width="1.2"/>
-  <text x="22" y="40" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, Liberation Mono, monospace" font-size="15.5" font-weight="700" fill="{TITLE}">{escape(name)}</text>
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{420 + GAP}" height="140" viewBox="0 0 {420 + GAP} 140" role="img" aria-label="{escape(name)}">
+  <rect x="{offset + 0.6}" y="0.6" width="418.8" height="138.8" rx="8" fill="{background}" stroke="{BORDER}" stroke-width="1.2"/>
+  <text x="{offset + 22}" y="40" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, Liberation Mono, monospace" font-size="15.5" font-weight="700" fill="{TITLE}">{escape(name)}</text>
   {body}
 </svg>
 '''
@@ -142,11 +148,13 @@ def main():
 
     for index, name in enumerate(FEATURED):
         repo = api(f'/repos/{USER}/{name}')
-        # The lighter background belongs to the right-hand column in every row.
-        # Alternating it per row as well put the light card on the left in the
-        # middle row, which read as a mistake rather than as a pattern.
-        background = BG_ALT if index % 2 else BG
-        (ASSETS / f'card-{name}.svg').write_text(card(name, repo.get('description') or '', background))
+        # Checkerboard across the two-column grid, and the column decides which
+        # side carries the gap so the outer edges of the grid stay flush.
+        column, row = index % 2, index // 2
+        background = BG_ALT if (column + row) % 2 else BG
+        offset = GAP if column else 0
+        (ASSETS / f'card-{name}.svg').write_text(
+            card(name, repo.get('description') or '', background, offset))
         print(f'card-{name}.svg')
 
     # Counted over public, non-fork, not archived repositories — exactly the
