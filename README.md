@@ -33,20 +33,11 @@
 
 ### Selected work
 
-<table>
-<tr>
-<td width="50%"><a href="https://github.com/haku4130/vendors-platform"><img src="assets/card-vendors-platform.svg" width="100%" alt="vendors-platform"></a></td>
-<td width="50%"><a href="https://github.com/haku4130/ml-malware-detector"><img src="assets/card-ml-malware-detector.svg" width="100%" alt="ml-malware-detector"></a></td>
-</tr>
-<tr>
-<td width="50%"><a href="https://github.com/haku4130/vpn-bot"><img src="assets/card-vpn-bot.svg" width="100%" alt="vpn-bot"></a></td>
-<td width="50%"><a href="https://github.com/haku4130/devops-bot"><img src="assets/card-devops-bot.svg" width="100%" alt="devops-bot"></a></td>
-</tr>
-<tr>
-<td width="50%"><a href="https://github.com/haku4130/ter-s-gallery-website"><img src="assets/card-ter-s-gallery-website.svg" width="100%" alt="ter-s-gallery-website"></a></td>
-<td width="50%"><a href="https://github.com/haku4130/hyperos-accessibility-guard"><img src="assets/card-hyperos-accessibility-guard.svg" width="100%" alt="hyperos-accessibility-guard"></a></td>
-</tr>
-</table>
+<a href="https://github.com/haku4130/vendors-platform"><img src="assets/card-vendors-platform.svg" width="48%" alt="vendors-platform"></a><a href="https://github.com/haku4130/ml-malware-detector"><img src="assets/card-ml-malware-detector.svg" width="48%" alt="ml-malware-detector"></a>
+
+<a href="https://github.com/haku4130/vpn-bot"><img src="assets/card-vpn-bot.svg" width="48%" alt="vpn-bot"></a><a href="https://github.com/haku4130/devops-bot"><img src="assets/card-devops-bot.svg" width="48%" alt="devops-bot"></a>
+
+<a href="https://github.com/haku4130/ter-s-gallery-website"><img src="assets/card-ter-s-gallery-website.svg" width="48%" alt="ter-s-gallery-website"></a><a href="https://github.com/haku4130/hyperos-accessibility-guard"><img src="assets/card-hyperos-accessibility-guard.svg" width="48%" alt="hyperos-accessibility-guard"></a>
 
 <img src="assets/card-stats.svg" width="100%" alt="231 commits in the last 12 months, 5 pull requests opened, 9 active public repositories">
 
