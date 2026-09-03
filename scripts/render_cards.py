@@ -142,10 +142,10 @@ def main():
 
     for index, name in enumerate(FEATURED):
         repo = api(f'/repos/{USER}/{name}')
-        # The cards sit in a two-column grid, so column + row parity gives the
-        # checkerboard: (0,0) dark, (0,1) light, (1,0) light, and so on.
-        column, row = index % 2, index // 2
-        background = BG_ALT if (column + row) % 2 else BG
+        # The lighter background belongs to the right-hand column in every row.
+        # Alternating it per row as well put the light card on the left in the
+        # middle row, which read as a mistake rather than as a pattern.
+        background = BG_ALT if index % 2 else BG
         (ASSETS / f'card-{name}.svg').write_text(card(name, repo.get('description') or '', background))
         print(f'card-{name}.svg')
 
