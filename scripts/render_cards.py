@@ -83,10 +83,16 @@ def wrap(text, max_chars, max_lines):
     return lines
 
 
-# Horizontal gap between the two columns. It is drawn inside the SVG rather
-# than left to whitespace in the README: two images that together fill the line
-# leave no room for a space, and adding one risks wrapping the pair.
-GAP = 20
+# Half of the horizontal gap between the two columns — each card carries this
+# much padding on the side that faces its neighbour. Drawn inside the SVG
+# rather than left to whitespace in the README: two images that together fill
+# the line leave no room for a space, and adding one risks wrapping the pair.
+#
+# 11 units render as ~21px of gap at the width GitHub gives a profile README,
+# matching the 21.5px that separates the rows. The rows are spaced by a CSS
+# margin in pixels while this gap scales with the image, so they drift apart on
+# a much narrower or wider page.
+GAP = 11
 
 
 def card(name, description, background, offset):
